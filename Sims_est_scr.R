@@ -9,7 +9,7 @@ clusterEvalQ(cl, library(MASS))
 clusterEvalQ(cl, library(MendelianRandomization))
 M = 1000
 clusterExport(cl, c('M', 'Est_sim_lass', 'mvmr_lasso', 'cv.mvmr_lasso',
-                    'Est_sim_med', 'mvmr_median', 'mvmr_median_boot',
+                    'Est_sim_med', 'mvmr_median', 'mvmr_med_boot',
                     'D_S1_10', 'D_S1_30', 'D_S1_50',
                     'D_S2_10', 'D_S2_30', 'D_S2_50',
                     'D_S3_10', 'D_S3_30', 'D_S3_50',
