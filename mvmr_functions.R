@@ -1,3 +1,7 @@
+################################################################################
+#Functions to implement the MVMR-robust, MVMR-median and MVMR-lasso methods
+################################################################################
+
 library(MASS)
 library(glmnet)
 library(quantreg)
