@@ -1,3 +1,7 @@
+################################################################################
+#Produces estimates from the simulated data created in sim_dat_all.R
+################################################################################
+
 library(quantreg)
 library(MendelianRandomization)
 library(parallel)
