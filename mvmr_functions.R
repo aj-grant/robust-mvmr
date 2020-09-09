@@ -30,7 +30,7 @@ mvmr_median = function(bx, sebx, by, seby, boot = FALSE, boot_it = 1000){
   }
 }
 
-cv.mvmr_lasso = function(bx, by, seby, nfolds){
+cv.mvmr_lasso = function(bx, by, seby){
   p = dim(bx)[1]
   k = dim(bx)[2]
   S = diag(seby^-2)
@@ -59,14 +59,14 @@ cv.mvmr_lasso = function(bx, by, seby, nfolds){
   return(list(fit = alas$beta[, (lamlen - lam_pos + 1)], lambda = lamseq[lam_pos]))
 }
 
-mvmr_lasso = function(bx, by, seby, K = 10){
+mvmr_lasso = function(bx, by, seby){
   p = dim(as.matrix(bx))[1]
   k = dim(as.matrix(bx))[2]
   S = diag(seby^-2)
   sn = sign(bx[, 1])
   bx_or = bx * sn
   by_or = by * sn
-  cv.alas = cv.mvmr_lasso(bx_or, by_or, seby, K)
+  cv.alas = cv.mvmr_lasso(bx_or, by_or, seby)
   a1 = cv.alas$fit
   e = by_or - a1
   thest = solve(t(bx_or) %*% S %*% bx_or, t(bx_or) %*% S %*% e)
