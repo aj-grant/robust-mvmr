@@ -506,4 +506,123 @@ save(D_S1_10_S1_null, D_S1_30_S1_null, D_S1_50_S1_null, D_S2_10_S1_null,
      D_S2_30_S1_null, D_S2_50_S1_null, D_S3_10_S1_null, D_S3_30_S1_null,
      D_S3_50_S1_null, file = 'Sims S1/sim_S1_dat_null.R')
 
+################################################################################
+#Mediator scenarios
+################################################################################
+
+#theta = 0.2
+clusterSetRNGStream(cl, 20210420)
+#S1
+D_S1_10_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'10', k = 2, mua = mua$S1, mug = mug$S1,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S1_30_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'30', k = 2, mua = mua$S1, mug = mug$S1,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S1_50_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'50', k = 2, mua = mua$S1, mug = mug$S1,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+
+#S2
+D_S2_10_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'10', k = 2, mua = mua$S2, mug = mug$S2,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S2_30_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'30', k = 2, mua = mua$S2, mug = mug$S2,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S2_50_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'50', k = 2, mua = mua$S2, mug = mug$S2,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+
+#S3
+D_S3_10_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'10', k = 2, mua = mua$S3, mug = mug$S3,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S3_30_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'30', k = 2, mua = mua$S3, mug = mug$S3,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S3_50_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'50', k = 2, mua = mua$S3, mug = mug$S3,
+                   sa, sg, g = rep(1/2, 2), theta = c(0.2, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+
+save(D_S1_10_med, D_S1_30_med, D_S1_50_med, D_S2_10_med, D_S2_30_med, D_S2_50_med,
+     D_S3_10_med, D_S3_30_med, D_S3_50_med, D_S4_10_med, D_S4_30_med, D_S4_50_med,
+     file = 'Sims results/sim_dat_med.R')
+
+################################################################################
+#theta = 0
+clusterSetRNGStream(cl, 20210420)
+#S1
+D_S1_10_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'10', k = 2, mua = mua$S1, mug = mug$S1,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S1_30_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'30', k = 2, mua = mua$S1, mug = mug$S1,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S1_50_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'50', k = 2, mua = mua$S1, mug = mug$S1,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+
+#S2
+D_S2_10_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'10', k = 2, mua = mua$S2, mug = mug$S2,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S2_30_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'30', k = 2, mua = mua$S2, mug = mug$S2,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S2_50_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'50', k = 2, mua = mua$S2, mug = mug$S2,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+
+#S3
+D_S3_10_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'10', k = 2, mua = mua$S3, mug = mug$S3,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S3_30_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'30', k = 2, mua = mua$S3, mug = mug$S3,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+D_S3_50_null_med = parLapply(cl, 1:M, function(j){
+  Data_sim_ind_med(n, m, p$'100', s = s$'50', k = 2, mua = mua$S3, mug = mug$S3,
+                   sa, sg, g = rep(1/2, 2), theta = c(0, 0.2), bx_min,
+                   bx_max$'100', SigX = diag(2))
+})
+
+save(D_S1_10_null_med, D_S1_30_null_med, D_S1_50_null_med, D_S2_10_null_med,
+     D_S2_30_null_med, D_S2_50_null_med, D_S3_10_null_med, D_S3_30_null_med,
+     D_S3_50_null_med, file = 'Sims results/sim_dat_null_med.R')
+
 stopCluster(cl)
