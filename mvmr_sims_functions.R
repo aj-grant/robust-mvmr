@@ -33,6 +33,67 @@ Data_sim_ind = function(n, m, p, s, k, mua, mug, sa, sg, g, theta, bx_min, bx_ma
   return(list("bxhat" = bxhat, "sebx" = sebx, "byhat" = byhat, "seby" = seby))
 }
 
+Data_sim_ind_inside = function(n, m, p, s, k, mua, mug, sa, sg, g, theta, bx_min, bx_max, SigX){
+  v = sample(p, p * (1 -s))
+  a = rnorm(p, mua, sa)
+  a[v] = 0
+  d = runif(p, mug-0.1, mug)
+  d[v] = 0
+  bx = sapply(1:k, function(j){runif(p, bx_min, bx_max)})
+  G = sapply(1:p, function(i){rbinom(2 * n, 2, m)})
+  U = G %*% d + rnorm(2 * n, 0, 1)
+  X = G %*% bx + U %*% t(g) + mvrnorm(2 * n, rep(0, k), SigX)
+  Y = X %*% theta + G %*% a + U + rnorm(2 * n, 0, 1)
+  sampX = seq(1, n)
+  sampY = seq((n+1):(2*n))
+  bxhat = matrix(nrow = p, ncol = k)
+  sebx = matrix(nrow = p, ncol = k)
+  byhat = vector(length = p)
+  seby = vector(length = p)
+  for (i in 1:p){
+    for (j in 1:k){
+      ssx = sstat(X[sampX, j], G[sampX, i])
+      bxhat[i, j] = ssx$bhat
+      sebx[i, j] = ssx$se
+    }
+    ssy = sstat(Y[sampY], G[sampY, i])
+    byhat[i] = ssy$bhat
+    seby[i] = ssy$se
+  }
+  return(list("bxhat" = bxhat, "sebx" = sebx, "byhat" = byhat, "seby" = seby, "v" = v))
+}
+
+Data_sim_ind_med = function(n, m, p, s, k, mua, mug, sa, sg, g, theta, bx_min, bx_max, SigX){
+  v = sample(p, p * (1 -s))
+  a = rnorm(p, mua, sa)
+  a[v] = 0
+  d = runif(p, 0, mug)
+  d[v] = 0
+  bx = sapply(1:k, function(j){runif(p, bx_min, bx_max)})
+  G = sapply(1:p, function(i){rbinom(2 * n, 2, m)})
+  U = G %*% d + rnorm(2 * n, 0, 1)
+  X = G %*% bx + U %*% t(g) + mvrnorm(2 * n, rep(0, k), SigX)
+  X[, 2] = X[, 2] + X[, 1]
+  Y = X %*% theta + G %*% a + U + rnorm(2 * n, 0, 1)
+  sampX = seq(1, n)
+  sampY = seq((n+1):(2*n))
+  bxhat = matrix(nrow = p, ncol = k)
+  sebx = matrix(nrow = p, ncol = k)
+  byhat = vector(length = p)
+  seby = vector(length = p)
+  for (i in 1:p){
+    for (j in 1:k){
+      ssx = sstat(X[sampX, j], G[sampX, i])
+      bxhat[i, j] = ssx$bhat
+      sebx[i, j] = ssx$se
+    }
+    ssy = sstat(Y[sampY], G[sampY, i])
+    byhat[i] = ssy$bhat
+    seby[i] = ssy$se
+  }
+  return(list("bxhat" = bxhat, "sebx" = sebx, "byhat" = byhat, "seby" = seby, "v" = v))
+}
+
 Data_sim_ind_S1 = function(n, m, p, s, k, mua, mug, sa, sg, g, theta, bx_min, bx_max, SigX){
   v = sample(p, p * (1 -s))
   a = rnorm(p, mua, sa)
