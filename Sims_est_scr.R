@@ -13,17 +13,22 @@ clusterEvalQ(cl, library(MASS))
 clusterEvalQ(cl, library(MendelianRandomization))
 M = 1000
 clusterExport(cl, c('M', 'Est_sim_lass', 'mvmr_lass', 'cv.mvmr_lass',
-                    'Est_sim_med', 'Est_sim_mrpresso', 'mvmr_qr', 'mv_med_boot',
-                    'mr_presso',
+                    'Est_sim_med', 'Est_sim_mrpresso', 'Est_sim_med_CI',
+                    'mvmr_qr', 'mvmr_qr_CI', 'mv_med_boot', 'mr_presso',
                     'D_S1_10', 'D_S1_30', 'D_S1_50', 'D_S1_70',
                     'D_S2_10', 'D_S2_30', 'D_S2_50', 'D_S2_70',
                     'D_S3_10', 'D_S3_30', 'D_S3_50', 'D_S3_70',
                     'D_S4_10', 'D_S4_30', 'D_S4_50', 'D_S4_70',
+                    'D_S1_10_med', 'D_S1_30_med', 'D_S1_50_med',
+                    'D_S2_10_med', 'D_S2_30_med', 'D_S2_50_med',
+                    'D_S3_10_med', 'D_S3_30_med', 'D_S3_50_med',
                     'D_S1_10_null', 'D_S1_30_null', 'D_S1_50_null', 'D_S1_70_null',
                     'D_S2_10_null', 'D_S2_30_null', 'D_S2_50_null', 'D_S2_70_null',
                     'D_S3_10_null', 'D_S3_30_null', 'D_S3_50_null', 'D_S3_70_null',
-                    'D_S4_10_null', 'D_S4_30_null', 'D_S4_50_null', 'D_S4_70_null')
-             )
+                    'D_S4_10_null', 'D_S4_30_null', 'D_S4_50_null', 'D_S4_70_null',
+                    'D_S1_10_null_med', 'D_S1_30_null_med', 'D_S1_50_null_med',
+                    'D_S2_10_null_med', 'D_S2_30_null_med', 'D_S2_50_null_med',
+                    'D_S3_10_null_med', 'D_S3_30_null_med', 'D_S3_50_null_med'))
 
 ################################################################################
 #Primary simulations
@@ -251,6 +256,197 @@ clusterSetRNGStream(cl, 20210425)
 E_S4_med_50_null = Est_sim_med(M, D_S4_50_null)
 clusterSetRNGStream(cl, 20210426)
 E_S4_med_70_null = Est_sim_med(M, D_S4_70_null)
+
+################################################################################
+#Mediator scenario
+################################################################################
+E_S1_10_meta_med = Est_sim_meta(M, D_S1_10_med)
+E_S1_30_meta_med = Est_sim_meta(M, D_S1_30_med)
+E_S1_50_meta_med = Est_sim_meta(M, D_S1_50_med)
+
+#S2
+E_S2_10_meta_med = Est_sim_meta(M, D_S2_10_med)
+E_S2_30_meta_med = Est_sim_meta(M, D_S2_30_med)
+E_S2_50_meta_med = Est_sim_meta(M, D_S2_50_med)
+
+#S3
+E_S3_10_meta_med = Est_sim_meta(M, D_S3_10_med)
+E_S3_30_meta_med = Est_sim_meta(M, D_S3_30_med)
+E_S3_50_meta_med = Est_sim_meta(M, D_S3_50_med)
+
+#S4
+E_S4_10_meta_med = Est_sim_meta(M, D_S4_10_med)
+E_S4_30_meta_med = Est_sim_meta(M, D_S4_30_med)
+E_S4_50_meta_med = Est_sim_meta(M, D_S4_50_med)
+
+################################################################################
+#theta = 0
+#IVW, Egger & Robust estimates
+#S1
+E_S1_10_null_meta_med = Est_sim_meta(M, D_S1_10_null_med)
+E_S1_30_null_meta_med = Est_sim_meta(M, D_S1_30_null_med)
+E_S1_50_null_meta_med = Est_sim_meta(M, D_S1_50_null_med)
+
+#S2
+E_S2_10_null_meta_med = Est_sim_meta(M, D_S2_10_null_med)
+E_S2_30_null_meta_med = Est_sim_meta(M, D_S2_30_null_med)
+E_S2_50_null_meta_med = Est_sim_meta(M, D_S2_50_null_med)
+
+#S3
+E_S3_10_null_meta_med = Est_sim_meta(M, D_S3_10_null_med)
+E_S3_30_null_meta_med = Est_sim_meta(M, D_S3_30_null_med)
+E_S3_50_null_meta_med = Est_sim_meta(M, D_S3_50_null_med)
+
+################################################################################
+#Mediator scenario Lasso Estimates
+################################################################################
+#theta = 0.2
+#S1
+clusterSetRNGStream(cl, 20210422)
+E_S1_lass_10_med = Est_sim_lass(M, D_S1_10_med)
+E_S1_lass_30_med = Est_sim_lass(M, D_S1_30_med)
+E_S1_lass_50_med = Est_sim_lass(M, D_S1_50_med)
+
+#S2
+E_S2_lass_10_med = Est_sim_lass(M, D_S2_10_med)
+E_S2_lass_30_med = Est_sim_lass(M, D_S2_30_med)
+E_S2_lass_50_med = Est_sim_lass(M, D_S2_50_med)
+
+#S3
+E_S3_lass_10_med = Est_sim_lass(M, D_S3_10_med)
+E_S3_lass_30_med = Est_sim_lass(M, D_S3_30_med)
+E_S3_lass_50_med = Est_sim_lass(M, D_S3_50_med)
+
+#theta = 0
+#S1
+clusterSetRNGStream(cl, 20210423)
+E_S1_lass_10_med_null = Est_sim_lass(M, D_S1_10_null_med)
+E_S1_lass_30_med_null = Est_sim_lass(M, D_S1_30_null_med)
+E_S1_lass_50_med_null = Est_sim_lass(M, D_S1_50_null_med)
+
+#S2
+E_S2_lass_10_med_null = Est_sim_lass(M, D_S2_10_null_med)
+E_S2_lass_30_med_null = Est_sim_lass(M, D_S2_30_null_med)
+E_S2_lass_50_med_null = Est_sim_lass(M, D_S2_50_null_med)
+
+#S3
+E_S3_lass_10_med_null = Est_sim_lass(M, D_S3_10_null_med)
+E_S3_lass_30_med_null = Est_sim_lass(M, D_S3_30_null_med)
+E_S3_lass_50_med_null = Est_sim_lass(M, D_S3_50_null_med)
+
+################################################################################
+#Mediator scenario LAD Estimates
+################################################################################
+
+#theta = 0.2
+#S1
+clusterSetRNGStream(cl, 20210424)
+E_S1_med_10_med = Est_sim_med(M, D_S1_10_med)
+E_S1_med_30_med = Est_sim_med(M, D_S1_30_med)
+E_S1_med_50_med = Est_sim_med(M, D_S1_50_med)
+
+#S2
+E_S2_med_10_med = Est_sim_med(M, D_S2_10_med)
+E_S2_med_30_med = Est_sim_med(M, D_S2_30_med)
+E_S2_med_50_med = Est_sim_med(M, D_S2_50_med)
+
+#S3
+E_S3_med_10_med = Est_sim_med(M, D_S3_10_med)
+E_S3_med_30_med = Est_sim_med(M, D_S3_30_med)
+E_S3_med_50_med = Est_sim_med(M, D_S3_50_med)
+
+#theta = 0
+#S1
+clusterSetRNGStream(cl, 20210425)
+E_S1_med_10_med_null = Est_sim_med(M, D_S1_10_null_med)
+E_S1_med_30_med_null = Est_sim_med(M, D_S1_30_null_med)
+E_S1_med_50_med_null = Est_sim_med(M, D_S1_50_null_med)
+
+#S2
+E_S2_med_10_med_null = Est_sim_med(M, D_S2_10_null_med)
+E_S2_med_30_med_null = Est_sim_med(M, D_S2_30_null_med)
+E_S2_med_50_med_null = Est_sim_med(M, D_S2_50_null_med)
+
+#S3
+E_S3_med_10_med_null = Est_sim_med(M, D_S3_10_null_med)
+E_S3_med_30_med_null = Est_sim_med(M, D_S3_30_null_med)
+E_S3_med_50_med_null = Est_sim_med(M, D_S3_50_null_med)
+
+################################################################################
+#Mediator scenario MR-PRESSO Estimates
+################################################################################
+
+#theta = 0.2
+#S1
+clusterSetRNGStream(cl, 20210426)
+E_S1_pres_10_med = Est_sim_mrpresso(M, D_S1_10_med)
+E_S1_pres_30_med = Est_sim_mrpresso(M, D_S1_30_med)
+E_S1_pres_50_med = Est_sim_mrpresso(M, D_S1_50_med)
+
+#S2
+E_S2_pres_10_med = Est_sim_mrpresso(M, D_S2_10_med)
+E_S2_pres_30_med = Est_sim_mrpresso(M, D_S2_30_med)
+E_S2_pres_50_med = Est_sim_mrpresso(M, D_S2_50_med)
+
+#S3
+E_S3_pres_10_med = Est_sim_mrpresso(M, D_S3_10_med)
+E_S3_pres_30_med = Est_sim_mrpresso(M, D_S3_30_med)
+E_S3_pres_50_med = Est_sim_mrpresso(M, D_S3_50_med)
+
+#theta = 0
+#S1
+clusterSetRNGStream(cl, 20210427)
+E_S1_pres_10_med_null = Est_sim_mrpresso(M, D_S1_10_null_med)
+E_S1_pres_30_med_null = Est_sim_mrpresso(M, D_S1_30_null_med)
+E_S1_pres_50_med_null = Est_sim_mrpresso(M, D_S1_50_null_med)
+
+#S2
+E_S2_pres_10_med_null = Est_sim_mrpresso(M, D_S2_10_null_med)
+E_S2_pres_30_med_null = Est_sim_mrpresso(M, D_S2_30_null_med)
+E_S2_pres_50_med_null = Est_sim_mrpresso(M, D_S2_50_null_med)
+
+#S3
+E_S3_pres_10_med_null = Est_sim_mrpresso(M, D_S3_10_null_med)
+E_S3_pres_30_med_null = Est_sim_mrpresso(M, D_S3_30_null_med)
+E_S3_pres_50_med_null = Est_sim_mrpresso(M, D_S3_50_null_med)
+
+################################################################################
+#LAD Estimates alternative CIs
+################################################################################
+
+#theta = 0.2
+#S1
+clusterSetRNGStream(cl, 20210428)
+E_S1_med_10_CI = Est_sim_med_CI(M, D_S1_10)
+E_S1_med_30_CI = Est_sim_med_CI(M, D_S1_30)
+E_S1_med_50_CI = Est_sim_med_CI(M, D_S1_50)
+
+#S2
+E_S2_med_10_CI = Est_sim_med_CI(M, D_S2_10)
+E_S2_med_30_CI = Est_sim_med_CI(M, D_S2_30)
+E_S2_med_50_CI = Est_sim_med_CI(M, D_S2_50)
+
+#S3
+E_S3_med_10_CI = Est_sim_med_CI(M, D_S3_10)
+E_S3_med_30_CI = Est_sim_med_CI(M, D_S3_30)
+E_S3_med_50_CI = Est_sim_med_CI(M, D_S3_50)
+
+#theta = 0
+#S1
+clusterSetRNGStream(cl, 20210429)
+E_S1_med_10_CI_null = Est_sim_med_CI(M, D_S1_10_null)
+E_S1_med_30_CI_null = Est_sim_med_CI(M, D_S1_30_null)
+E_S1_med_50_CI_null = Est_sim_med_CI(M, D_S1_50_null)
+
+#S2
+E_S2_med_10_CI_null = Est_sim_med_CI(M, D_S2_10_null)
+E_S2_med_30_CI_null = Est_sim_med_CI(M, D_S2_30_null)
+E_S2_med_50_CI_null = Est_sim_med_CI(M, D_S2_50_null)
+
+#S3
+E_S3_med_10_CI_null = Est_sim_med_CI(M, D_S3_10_null)
+E_S3_med_30_CI_null = Est_sim_med_CI(M, D_S3_30_null)
+E_S3_med_50_CI_null = Est_sim_med_CI(M, D_S3_50_null)
 
 stopCluster(cl)
 
