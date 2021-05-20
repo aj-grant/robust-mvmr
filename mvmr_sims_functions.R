@@ -170,6 +170,14 @@ Est_sim_med = function(M, D){
   })
 }
 
+Est_sim_med_CI = function(M, D){
+  parSapply(cl, 1:M, function(j){
+    Dsum = D[[j]]
+    th_qr = mvmr_qr_CI(Dsum$bxhat, Dsum$byhat, Dsum$seby, boot = TRUE, boot_it = 1000)
+    c(th_qr$coefficients, th_qr$CIlow_boot, th_qr$CIupp_boot, th_qr$CIlow_rinv, th_qr$CIupp_rinv)
+  })
+}
+
 Est_sim_lass = function(M, D){
   parSapply(cl, 1:M, function(j){
     Dsum = D[[j]]
