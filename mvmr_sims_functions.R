@@ -185,3 +185,20 @@ Est_sim_lass = function(M, D){
     c(th_lass$th_post, th_lass$se_post)
   })
 }
+
+mvmr_qr_CI = function(bx, by, seby, boot = FALSE, boot_it = 1000){
+  qr_mod = rq(by ~ bx - 1, weights = seby^-2)
+  if (boot == TRUE){
+    a = sapply(1:boot_it, function(i){
+      p = length(by)
+      b = sample(p, replace = TRUE)
+      rq(by[b] ~ bx[b, ] - 1, weights = seby[b]^-2)$coefficients[1]
+    })
+    return(list("coefficients" = qr_mod$coefficients[1],
+                "CIlow_boot" = sort(a)[round(boot_it/20,1)], "CIupp_boot" = sort(a)[round(19*boot_it/20,1)],
+                "CIlow_rinv" = summary(qr_mod)$coefficients[1, 2], "CIupp_rinv" = summary(qr_mod)$coefficients[1, 3]))
+  } else {
+    return(list("coefficients" = qr_mod$coefficients[1],
+                "CIlow_rinv" = summary(qr_mod)$coefficients[1, 2], "CIupp_rinv" = summary(qr_mod)$coefficients[1, 3]))
+  }
+}
