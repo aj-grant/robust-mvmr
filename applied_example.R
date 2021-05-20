@@ -51,6 +51,8 @@ mvmr_egger_AD = mr_mvegger(mr_mvinput(bx = bx_matrix, bxse = sebx_matrix,
                            byse = beta_se_all$lambert_se))
 mvmr_robust_AD = mvmr_robust(bx_matrix, beta_se_all$lambert_beta,
                              beta_se_all$lambert_se, k.max = 1000, maxit.scale = 1000)
+dat = data.frame("by" = beta_se_all$lambert_beta, "seby" = beta_se_all$lambert_se,
+                 "bx" = bx_matrix, "sebx" = sebx_matrix)
 set.seed(20200705)
 mvmr_presso_AD = mr_presso(BetaOutcome = "by", BetaExposure = c("bx.1", "bx.2", "bx.3"),
                            SdOutcome = "seby", SdExposure = c("sebx.1", "sebx.2", "sebx.3"),
@@ -63,4 +65,6 @@ set.seed(20200707)
 mvmr_lasso_AD = mvmr_lass(bx_matrix, beta_se_all$lambert_beta,
                           beta_se_all$lambert_se)
 #set.seed(20210414)
-qhet_est = qhet_mvmr(format_mvmr(BXGs = bx_matrix, BYG = beta_se_all$lambert_beta, seBXGs = sebx_matrix, beta_se_all$lambert_se), pcor = diag(3), CI = TRUE, iterations = 1000)
+qhet_est = qhet_mvmr(format_mvmr(BXGs = bx_matrix, BYG = beta_se_all$lambert_beta,
+                                 seBXGs = sebx_matrix, beta_se_all$lambert_se),
+                     pcor = diag(3), CI = TRUE, iterations = 1000)
