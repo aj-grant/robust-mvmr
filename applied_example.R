@@ -5,6 +5,7 @@ library(tidyverse)
 library(RColorBrewer)
 library(cowplot)
 library(gridExtra)
+library(MVMR)
 
 beta_se_all = read.csv("beta_se_all.csv", header = TRUE)
 
@@ -59,10 +60,10 @@ mvmr_presso_AD = mr_presso(BetaOutcome = "by", BetaExposure = c("bx.1", "bx.2", 
                            OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = dat,
                            NbDistribution = 5000, SignifThreshold = 0.05)
 set.seed(20200706)
-mvmr_median_AD = mvmr_qr(bx_matrix, sebx_matrix, beta_se_all$lambert_beta,
+mvmr_median_AD = mvmr_median(bx_matrix, sebx_matrix, beta_se_all$lambert_beta,
                          beta_se_all$lambert_se, boot = TRUE, boot_it = 1000)
 set.seed(20200707)
-mvmr_lasso_AD = mvmr_lass(bx_matrix, beta_se_all$lambert_beta,
+mvmr_lasso_AD = mvmr_lasso(bx_matrix, beta_se_all$lambert_beta,
                           beta_se_all$lambert_se)
 #set.seed(20210414)
 qhet_est = qhet_mvmr(format_mvmr(BXGs = bx_matrix, BYG = beta_se_all$lambert_beta,
